@@ -4,7 +4,8 @@
   "description": "The main objective of this project is to develop the habillity to create a register and login system, with the recover password option.",
   "main": "index.js",
   "scripts": {
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "commit": "git-cz"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,12 @@
   "devDependencies": {
     "@commitlint/cli": "^16.1.0",
     "@commitlint/config-conventional": "^16.0.0",
+    "cz-conventional-changelog": "^3.3.0",
     "husky": "^7.0.4"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
