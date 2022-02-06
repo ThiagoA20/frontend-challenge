@@ -1,0 +1,25 @@
+{
+  "name": "react_challenge",
+  "version": "1.0.0",
+  "description": "The main objective of this project is to develop the habillity to create a register and login system, with the recover password option.",
+  "main": "index.js",
+  "scripts": {
+    "prepare": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ThiagoA20/frontend-challenge.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ThiagoA20/frontend-challenge/issues"
+  },
+  "homepage": "https://github.com/ThiagoA20/frontend-challenge#readme",
+  "devDependencies": {
+    "@commitlint/cli": "^16.1.0",
+    "@commitlint/config-conventional": "^16.0.0",
+    "husky": "^7.0.4"
+  }
+}
