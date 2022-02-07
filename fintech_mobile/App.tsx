@@ -1,25 +1,10 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import Navigator from './components/navigator'
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text style={{
-        color: "#E8EBF7"
-      }}>Fintech app</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Navigator />
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#0E1428',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 
 // #F0A202 -> orange
 // #E8EBF7 -> white
