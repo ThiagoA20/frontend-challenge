@@ -1,4 +1,5 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
+import { TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/AntDesign'
 import { 
     MainView,
@@ -35,13 +36,20 @@ import {
 } from './style'
 
 const Home = ({navigation}: {navigation: any}) => {
-    const [initialAport, setInitialAport] = useState('0')
-    const [monthAport, setMonthAport] = useState('0')
-    const [tax, setTax] = useState('0')
-    const [time, setTime] = useState('0')
+    const [initialAport, setInitialAport] = useState("0.00")
+    const [monthAport, setMonthAport] = useState("0.00")
+    const [tax, setTax] = useState("0.00")
+    const [time, setTime] = useState(0)
 
-    const [taxTime, setTaxTime] = useState('0')
-    const [timePassed, setTimePassed] = useState('0')
+    const [taxTime, setTaxTime] = useState("month")
+    const [timePassed, setTimePassed] = useState("month")
+
+    const [taxTimeDropdown, setTaxTimeDropdown] = useState(false)
+    const [taxTimePassedDropdown, setTimePassedDropdown] = useState(false)
+
+    function formatNumbers(number: string) {
+        return number.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+    }
 
     return (
         <MainView>
@@ -63,7 +71,11 @@ const Home = ({navigation}: {navigation: any}) => {
                             <InputLabelText>R$</InputLabelText>
                         </InputLabelContainer>
                         <InputCapitalContainer>
-                            <InputCapitalText placeholder="0,00" placeholderTextColor="#E8EBF7"/>
+                            <InputCapitalText placeholder="0,00" placeholderTextColor="#E8EBF7" keyboardType={"numeric"} onChangeText={(text) => {
+                                // console.log(text)
+                                // let difference = parseFloat(parseFloat(text).toFixed(2)) - parseFloat(parseFloat(initialAport).toFixed(2))
+                                // setInitialAport(difference.toString())
+                            }} value={initialAport}/>
                         </InputCapitalContainer>
                     </CapitalInputContainer>
                 </InitialCapitalContainer>
@@ -75,7 +87,9 @@ const Home = ({navigation}: {navigation: any}) => {
                             <InputLabelText>R$</InputLabelText>
                         </InputLabelContainer>
                         <InputCapitalContainer>
-                            <InputCapitalText placeholder="0,00" placeholderTextColor="#E8EBF7"/>
+                            <InputCapitalText placeholder="0,00" placeholderTextColor="#E8EBF7" keyboardType={"numeric"} onChangeText={(text) => {
+                                setMonthAport(parseFloat(text).toFixed(2))
+                            }} value={monthAport}/>
                         </InputCapitalContainer>
                     </CapitalInputContainer>
                 </MonthCapitalContainer>
@@ -89,10 +103,12 @@ const Home = ({navigation}: {navigation: any}) => {
                                 <DropDownLabelText>%</DropDownLabelText>
                             </DropDownLabelContainer>
                             <InputTaxContainer>
-                                <InputCapital placeholder="0,00" placeholderTextColor="#E8EBF7"/>
+                                <InputCapital placeholder="0,00" placeholderTextColor="#E8EBF7" keyboardType={"numeric"}/>
                             </InputTaxContainer>
                             <TaxTimeSelectContainer>
-                                <DropDownSelectText>Mês</DropDownSelectText>
+                                <DropDownSelectText onPress={() => {
+                                    console.log("Mês")
+                                }}>Mês</DropDownSelectText>
                                 <Icon name="down"/>
                             </TaxTimeSelectContainer>
                         </DropdownContainer>
@@ -102,10 +118,12 @@ const Home = ({navigation}: {navigation: any}) => {
                         <DropdownText>Tempo em:</DropdownText>
                         <DropdownContainer>
                             <InputTimeContainer>
-                                <InputCapital placeholder="0" placeholderTextColor="#E8EBF7"/>
+                                <InputCapital placeholder="0" placeholderTextColor="#E8EBF7" keyboardType={"numeric"}/>
                             </InputTimeContainer>
                             <TimeSelectContainer>
-                                <DropDownSelectText>Meses</DropDownSelectText>
+                                <DropDownSelectText onPress={() => {
+                                    console.log("Meses")
+                                }}>Meses</DropDownSelectText>
                                 <Icon name="down"/>
                             </TimeSelectContainer>
                         </DropdownContainer>
@@ -117,12 +135,18 @@ const Home = ({navigation}: {navigation: any}) => {
 
             <CalculateContainer>
                 <CalculateButton>
-                    <CalculateText>CALCULAR</CalculateText>
+                    <CalculateText onPress={() => {
+                        console.log("Calculate")
+                    }}>CALCULAR</CalculateText>
                 </CalculateButton>
             </CalculateContainer>
 
             <ExitContainer>
-                <ExitText>Sair</ExitText>
+                <TouchableOpacity onPress={() => {
+                    console.log("Exit")
+                }}>
+                    <ExitText>Sair</ExitText>
+                </TouchableOpacity>
             </ExitContainer>
 
         </MainView>

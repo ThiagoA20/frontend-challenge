@@ -122,11 +122,12 @@ export const DropDownLabelContainer = styled.View`
 `
 export const DropDownLabelText = styled.Text`
     color: #E8EBF7;
-    font-size: 20px;
+    font-size: 15px;
     font-weight: bold;
 `
 
 export const InputCapital = styled.TextInput`
+    color: #E8EBF7;
     text-align: right;
     height: 100%;
     &:focus {
