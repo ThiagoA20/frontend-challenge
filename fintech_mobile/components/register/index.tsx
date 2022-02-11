@@ -5,6 +5,7 @@ import {
     MainNavContainer,
     TitleContainer,
     TitleText,
+    BackArrowButton,
     InputMainContainer,
     InputText,
     InputContainer,
@@ -32,7 +33,11 @@ const Register = ({navigation}: {navigation: any}) => {
         <MainScreen>
 
             <MainNavContainer>
-                <Icon name="chevron-left" color="#F0A202" size={30}/>
+                <BackArrowButton onPress={() => {
+                    navigation.navigate("Login")
+                }}>
+                    <Icon name="chevron-left" color="#F0A202" size={30}/>
+                </BackArrowButton>
             </MainNavContainer>
 
             <TitleContainer>

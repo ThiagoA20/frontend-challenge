@@ -5,6 +5,7 @@ import {
     MainNavContainer,
     ForgotPasswordButton,
     ForgotPasswordText,
+    BackArrowButton,
     TitleContainer,
     TitleText,
     InputMainContainer,
@@ -35,8 +36,14 @@ const Login = ({navigation}: {navigation: any}) => {
         <MainScreen>
 
             <MainNavContainer>
-                <Icon name="chevron-left" color="#F0A202" size={30}/>
-                <ForgotPasswordButton>
+                <BackArrowButton onPress={() => {
+                    navigation.navigate("Register")
+                }}>
+                    <Icon name="chevron-left" color="#F0A202" size={30}/>
+                </BackArrowButton>
+                <ForgotPasswordButton onPress={() => {
+                    navigation.navigate("ForgotPassword")
+                }}>
                     <ForgotPasswordText>Esqueci minha senha</ForgotPasswordText>
                 </ForgotPasswordButton>
             </MainNavContainer>

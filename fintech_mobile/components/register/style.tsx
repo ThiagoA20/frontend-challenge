@@ -26,8 +26,11 @@ export const TitleContainer = styled.View`
     width: 100%;
     height: 7%;
     padding: 30px;
-    padding-top: 0px;
+    padding-top: 10px;
 `
+
+export const BackArrowButton = styled.TouchableOpacity``
+
 export const TitleText = styled.Text`
     color: #E8EBF7;
     font-size: 30px;
