@@ -3,9 +3,8 @@ import flask_sqlalchemy
 db = flask_sqlalchemy.SQLAlchemy()
 
 
-class Cats(db.Model):
-    __tablename__ = 'cats'
+class Users(db.Model):
+    __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100))
-    price = db.Column(db.Integer)
-    breed = db.Column(db.String(100))
+    email = db.Column(db.String(200))
+    password = db.Column(db.String(200))

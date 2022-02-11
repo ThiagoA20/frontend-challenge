@@ -1,5 +1,8 @@
 import os
 
+# export $(xargs < database.conf)
+# export FLASK_APP=app.py
+
 user = os.environ['POSTGRES_USER']
 password = os.environ['POSTGRES_PASSWORD']
 host = os.environ['POSTGRES_HOST']
