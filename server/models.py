@@ -8,3 +8,4 @@ class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(200))
     password = db.Column(db.String(200))
+    autenticated = db.Column(db.Boolean, default=False)

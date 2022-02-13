@@ -1,4 +1,5 @@
 import json
+import bcrypt
 
 from flask import request
 
@@ -6,6 +7,11 @@ from . import create_app, database
 from .models import Users
 
 app = create_app()
+
+def encrypt_password(password):
+    salt = bcrypt.gensalt()
+    encrypted_password = bcrypt.hashpw(password, salt)
+    return encrypted_password
 
 
 @app.route('/', methods=['GET'])
@@ -27,7 +33,7 @@ def fetch():
 def add():
     data = request.get_json()
     email = data['email']
-    password = data['password']
+    password = encrypt_password(data['password'])
 
     database.add_instance(Users, email=email, password=password)
     return json.dumps("Added"), 200
