@@ -1,6 +1,9 @@
-import bcrypt
-import unittest
+# import bcrypt
+# import unittest
 from server.app import *
+
+print(type(isEmailRegistered("teste@gmail.com")))
+print(isEmailRegistered("blabla@teste.com"))
 
 
 class CriptographyTest(unittest.TestCase):

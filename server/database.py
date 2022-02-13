@@ -6,8 +6,12 @@ def get_all(model):
     return data
 
 def get_user(model, email):
-    instance = model.query.filter_by(email=email).all()[0]
-    return instance
+    try:
+        instance = model.query.filter_by(email=email).all()[0]
+        
+        return instance
+    except IndexError:
+        return None
 
 
 def add_instance(model, **kwargs):

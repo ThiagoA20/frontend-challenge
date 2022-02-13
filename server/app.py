@@ -1,13 +1,15 @@
 import json
 import bcrypt
 import re
-import os
+import os, sys
 
 from flask import request
 from flask_mail import Mail, Message
 
 from . import create_app, database
 from .models import Users
+
+app = create_app()
 
 
 def encrypt_password(password) -> str:
@@ -26,7 +28,10 @@ def isEmailValid(email) -> bool:
 
 def isEmailRegistered(email) -> bool:
     user = database.get_user(Users, email)
-    return True
+    if user != None:
+        return True
+    else:
+        return False
 
 
 @app.route('/', methods=['GET'])
@@ -55,12 +60,15 @@ def register():
     """
     data = request.get_json()
     email = data['email']
-    password = encrypt_password(data['password'])
+    if not isEmailValid(email):
+        return json.dumps("Email isn't valid"), 403
+    elif isEmailRegistered(email):
+        return json.dumps("Email already registered"), 401
+    else:
+        password = encrypt_password(data['password'])
 
-    # verificar se já existe um email cadastrado
-
-    database.add_instance(Users, email=email, password=password)
-    return json.dumps("Added"), 200
+        database.add_instance(Users, email=email, password=password)
+        return json.dumps("Added"), 200
 
 
 @app.route('/login', methods=['POST'])
@@ -73,13 +81,6 @@ def login():
     data = request.get_json()
     email = data['email']
     password = data['password']
-
-
-
-# @app.route('/remove/<cat_id>', methods=['DELETE'])
-# def remove(cat_id):
-#     database.delete_instance(Cats, id=cat_id)
-#     return json.dumps("Deleted"), 200
 
 
 # @app.route('/edit/<cat_id>', methods=['PATCH'])
