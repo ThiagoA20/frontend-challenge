@@ -1,17 +1,32 @@
 import json
 import bcrypt
+import re
+import os
 
 from flask import request
+from flask_mail import Mail, Message
 
 from . import create_app, database
 from .models import Users
 
-app = create_app()
 
-def encrypt_password(password):
+def encrypt_password(password) -> str:
     salt = bcrypt.gensalt()
     encrypted_password = bcrypt.hashpw(password, salt)
     return encrypted_password
+
+
+def isEmailValid(email) -> bool:
+    regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+    if (re.fullmatch(regex, email)):
+        return True
+    else:
+        return False
+
+
+def isEmailRegistered(email) -> bool:
+    user = database.get_user(Users, email)
+    return True
 
 
 @app.route('/', methods=['GET'])
@@ -23,6 +38,8 @@ def fetch():
             "id": user.id,
             "email": user.email,
             "password": user.password,
+            "autenticated": user.autenticated,
+            "validated_email": user.validated_email
         }
 
         all_users.append(new_user)
@@ -30,13 +47,33 @@ def fetch():
 
 
 @app.route('/register', methods=['POST'])
-def add():
+def register():
+    """
+    call the function to check if the email is valid, call the function to check if the email isn't already
+    registered and finally Call the function to encrypt the password and register the user if the none of the first two
+    functions return false.
+    """
     data = request.get_json()
     email = data['email']
     password = encrypt_password(data['password'])
 
+    # verificar se já existe um email cadastrado
+
     database.add_instance(Users, email=email, password=password)
     return json.dumps("Added"), 200
+
+
+@app.route('/login', methods=['POST'])
+def login():
+    """
+    Call the function to check if the email is registered and call the function to check if the password hash match with 
+    the hash stored in the database. If none of the functions return false, set the user authentication to true, otherwise,
+    return that email or password is wrong. 
+    """
+    data = request.get_json()
+    email = data['email']
+    password = data['password']
+
 
 
 # @app.route('/remove/<cat_id>', methods=['DELETE'])

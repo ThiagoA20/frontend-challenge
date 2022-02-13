@@ -5,6 +5,10 @@ def get_all(model):
     data = model.query.all()
     return data
 
+def get_user(model, email):
+    instance = model.query.filter_by(email=email).all()[0]
+    return instance
+
 
 def add_instance(model, **kwargs):
     instance = model(**kwargs)

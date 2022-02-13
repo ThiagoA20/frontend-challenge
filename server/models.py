@@ -9,3 +9,4 @@ class Users(db.Model):
     email = db.Column(db.String(200))
     password = db.Column(db.String(200))
     autenticated = db.Column(db.Boolean, default=False)
+    validated_email = db.Column(db.Boolean, default=False)
